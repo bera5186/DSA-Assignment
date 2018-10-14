@@ -19,10 +19,10 @@ int main(){
         }
     }
     if(flag1 == 0){
-        printf("41 not found\n");
+        printf("41 not found\n"); 
     }
     if(flag2 == 0){
-        printf("62 not found\n");
+        printf("62 not found\n"); 
     }
     return 0;
 }
