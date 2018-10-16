@@ -18,10 +18,10 @@ int main(){
             flag2 = flag2 +1;
         }
     }
-    if(flag1 == 0){
+    if(flag1 == 0){ // counter for 41
         printf("41 not found\n"); 
     }
-    if(flag2 == 0){
+    if(flag2 == 0){ // counter for 62
         printf("62 not found\n"); 
     }
     return 0;
