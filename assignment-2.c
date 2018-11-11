@@ -59,7 +59,8 @@ Node *tail = NULL;
       
       search()  :
             Function : Search a specific element
-            return type : int
+            return type : bool
+      
 
 *********************************************************************************/
 
@@ -72,7 +73,7 @@ bool isEmpty(){
     }
 }
 
-void makeEmpty(){
+void makeEmpty(Node *head){
     if(head == NULL){
         printf("The List is Empty");
         return;
@@ -88,13 +89,26 @@ void makeEmpty(){
     }
 }
 
-void add(int value){
+bool search(Node *head, int key){
+    Node *ptr = head;
+
+    while(ptr != NULL){
+        if(ptr->data = key){
+            return true;
+        }
+        ptr = ptr->data;
+
+    }
+    return false;
+}
+
+void add(Node *head, int value){
     
     Node *newnode = (Node *)malloc(sizeof(struct node));
     newnode->data = value;
 
     if(head == NULL){
-        newnode = head;
+        newnode = head = tail;
         newnode->next = NULL;
     }
 
@@ -104,3 +118,121 @@ void add(int value){
     }
 }
 
+void addLast(Node *head, int value){
+
+    Node *newnode = (Node *)malloc(sizeof(struct node));
+    newnode->data = value;
+
+    if(head == NULL){
+        newnode = head = tail;
+        newnode->next = NULL;
+    }
+
+    else{
+        tail->next = newnode;
+        newnode->next = NULL;
+        newnode = tail;
+    }
+}
+
+void addAfter(Node *head, int value, int key){
+    
+    if(search(head, key)){
+        
+        Node *newnode = (Node *)malloc(sizeof(struct node));
+        newnode->data = value;
+        
+        Node *ptr, *pptr, *nptr;
+        pptr = ptr = head;
+        nptr = ptr->next;
+
+        while(ptr->data != key){
+            ptr = ptr->next;
+        }
+        newnode->next = ptr->next;
+        ptr->next = newnode;
+    } else {
+        printf("The given key in not present in the list \n");
+    } 
+}
+
+void remove(Node *head, int key){
+    
+    if(search(head, key)){
+        
+        Node *ptr, *pptr, *nptr;
+        pptr = ptr = head;
+        nptr = ptr->next;
+
+        while(ptr->data != key){
+            nptr = nptr->next;
+            pptr = ptr;
+            ptr = ptr->next;
+        }
+        pptr->next = nptr;
+        free(ptr);
+
+    } else {
+        printf("The given Key is not present in the list\n");
+    }
+}
+
+void removeAll(Node *head, int key){
+
+    if(search(head, key)){
+        
+        Node *ptr, *pptr, *nptr;
+        pptr = ptr = head;
+        nptr = ptr->next;
+
+        while(ptr->data != key){
+            nptr = nptr->next;
+            pptr = ptr;
+            ptr = ptr->next;
+        }
+        pptr->next = nptr;
+        free(ptr);
+        removeAll(head, key);
+
+    } else {
+        printf(" All Gone ! ");
+    }
+}
+
+void printList(Node *head){
+    
+    if(head == NULL){
+        printf("Nothing to show !! \n");
+    }
+    else{
+        Node *ptr = head;
+        while(ptr != NULL){
+            printf("%d -> ", ptr->data);
+            ptr=ptr->next;
+        }
+    }
+}
+
+void printListRev(Node *head){
+    Node *ptr,*cpt,*pptr;
+    pptr = cpt = ptr = head;
+
+    while(ptr->next != NULL){
+        if(count == 1){
+            cpt = cpt->next;
+            pptr->next=NULL;
+            ptr = cpt;
+        }
+        else{
+            cpt=cpt->next;
+            ptr->next=pptr;
+            pptr=ptr;
+            ptr=cpt;
+        }
+        count = count + 1;
+    }
+    ptr->next=pptr;
+    head = ptr;
+    printList(head);
+
+}
